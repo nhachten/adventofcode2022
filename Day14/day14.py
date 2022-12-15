@@ -51,7 +51,8 @@ def place_rocks(start, end):
         down_high_bound = end.down
 
 def blocked(position):
-    if position in rock_positions or position in sand_positions:
+    global down_high_bound
+    if position in rock_positions or position in sand_positions or position.down >= down_high_bound + 2:
         return True 
     else:
         return False
@@ -70,8 +71,11 @@ def drop_sand():
         else:
             still_falling = False
             sand_positions.add(current_position)
+            if current_position == SAND_DROP:
+                return None
 
-        if current_position.down > down_high_bound:
+        #if current_position.down > down_high_bound: # part 1
+        if current_position.down > down_high_bound + 2: # part 2
             print("Detected infinite fall")
             return False
 
@@ -90,10 +94,10 @@ def main(input_lines):
     while sand_stopped:
         sand_stopped = drop_sand()
 
-    pprint(sand_positions)
+    #pprint(sand_positions)
     print(len(sand_positions))
 
-    for down in range(0, down_high_bound + 1):
+    for down in range(0, down_high_bound + 2):
         for right in range(right_low_bound, right_high_bound + 1):
             if Position(right,down) in sand_positions:
                 print("o",end="")
@@ -101,9 +105,12 @@ def main(input_lines):
                 print("#",end="")
             else:
                 print(".",end="")
-
         print()
 
+    # last row with the floor at +2
+    for right in range(right_low_bound, right_high_bound + 1):
+        print("#",end="")
+    print()
 
 
 if __name__ == "__main__":
