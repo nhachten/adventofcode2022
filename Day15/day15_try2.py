@@ -36,8 +36,8 @@ def count_col_intersect(row_num):
         #print(f"sensor ({sx},{sy}) - beacon ({bx},{by}) - md: {md}")
         if (sx-md) <= row_num <= (sx+md):
             #print("add to overlap")
-            overlap = range(sy - (md - abs(row_num-sx)), sy + (md - abs(row_num-sx)) + 1)
-            overlap_list = [(row_num, y) for y in overlap]
+            #overlap = range(sy - (md - abs(row_num-sx)), sy + (md - abs(row_num-sx)) + 1)
+            #overlap_list = [(row_num, y) for y in overlap]
             #print(overlap)
             #total_overlap.update(overlap)
             total_overlap.update(overlap_list)
@@ -64,9 +64,9 @@ def main(input_lines):
         sbp_list.append(sensor_beacon_pair)
 
     s1 = set(list(zip(*count_row_intersect(2000000)))[0])
-    s2 = set(list(zip(*count_row_intersect(2000001)))[0])
+    #s2 = set(list(zip(*count_row_intersect(2000001)))[0])
 
-    print(s1.difference(s2))
+   # print(s1.difference(s2))
         
     
 
