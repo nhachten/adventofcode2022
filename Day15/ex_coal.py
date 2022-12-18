@@ -14,17 +14,17 @@ list_of_empty_col_ranges_by_row_lookup_dict = {}
 def coalesce(list_of_ranges):
     index = 0
     while index < len(list_of_ranges) - 1:
-        print(f"index: {index}")
+        #print(f"index: {index}")
         left = list_of_ranges[index]
         right = list_of_ranges[index + 1]
-        print(f"left: {left}")
-        print(f"right: {right}")
+        #print(f"left: {left}")
+        #print(f"right: {right}")
         if left.stop >= right.start:
             new_range = range(left.start, max(left.stop, right.stop))
-            print(f"new_range: {new_range}")
+            #print(f"new_range: {new_range}")
             list_of_ranges[index] = new_range
             list_of_ranges = list_of_ranges[:index+1] + list_of_ranges[index+2:]
-            print(f"list_of_ranges: {list_of_ranges}")
+            #print(f"list_of_ranges: {list_of_ranges}")
         else:
             index += 1
 
@@ -62,8 +62,17 @@ def main(input_lines):
         sensor_beacon_pair = list(map(int, re.findall(pat, line)))
         process_sensor_beacon_pair(sensor_beacon_pair)
 
-    pprint(list_of_empty_col_ranges_by_row_lookup_dict)
+    #pprint(list_of_empty_col_ranges_by_row_lookup_dict)
+    print("Done processing. Now look for the missing beacon")
+    for i in range(0, 4000000):
+        if len(list_of_empty_col_ranges_by_row_lookup_dict[i]) > 1:
+            print(f"Found row at {i}")
+            print(list_of_empty_col_ranges_by_row_lookup_dict[i])
+            break
+
+    print("done")
 
 if __name__ == "__main__":
-    input_lines = get_input("tiny_input.txt")
+    #input_lines = get_input("tiny_input.txt")
+    input_lines = get_input()
     main(input_lines)
